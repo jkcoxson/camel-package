@@ -3,5 +3,6 @@
 
 fn main() {
     let pkg_name: String = camel_insert_package_name!();
+    let binary = camel_insert_binary!();
     println!("")
 }

@@ -1,0 +1,12 @@
+{
+  "name": "camel",
+  "install_path": "plsno",
+  "license": "",
+  "platforms": [
+    {
+      "arch": "aarch64-apple-darwin",
+      "libs": [],
+      "bins": []
+    }
+  ]
+}
