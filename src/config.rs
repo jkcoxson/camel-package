@@ -6,15 +6,15 @@ use std::io::Error;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Config {
-    name: String,
-    install_path: String,
-    license: String,
+    pub name: String,
+    pub license: String,
     pub platforms: Vec<Platform>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Platform {
     pub arch: String,
+    pub install_path: String,
     pub libs: Vec<Lib>,
     pub bins: Vec<Binary>,
 }
@@ -44,7 +44,6 @@ impl Config {
     pub fn new() -> Self {
         // Get a name for the package
         let name = ui::text_prompt("What is the name of your package?");
-        let install_path = ui::text_prompt("Where would you like the binary installed to?");
         let license;
         if ui::yes_or_no("Would you like to include a license?") {
             // Get the license text
@@ -55,7 +54,6 @@ impl Config {
 
         let mut config = Config {
             name,
-            install_path,
             license,
             platforms: vec![],
         };
@@ -75,12 +73,14 @@ impl Config {
         loop {
             // Get a platform to configure
             let platform = ui::multi_prompt("Select a platform to configure:", platforms.clone());
+            let install_path = ui::text_prompt("Enter the install path for this platform:");
             if platform == "Cancel" {
                 break;
             }
 
             let mut platform = Platform {
                 arch: platform.clone(),
+                install_path,
                 libs: vec![],
                 bins: vec![],
             };
